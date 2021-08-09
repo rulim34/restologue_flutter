@@ -1,0 +1,12 @@
+include: package:lint/analysis_options.yaml
+
+linter:
+  rules:
+    avoid_dynamic_calls: false
+    prefer_single_quotes: true
+    sort_pub_dependencies: false
+
+analyzer:
+  exclude:
+    - "**/*.g.dart"
+    - "**/*.config.dart"

@@ -1,0 +1,58 @@
+name: restologue
+description: A restaurant catalogue just for you.
+version: 1.0.0+1
+environment:
+  sdk: ">=2.12.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cached_network_image: ^3.1.0
+  cupertino_icons: ^1.0.2
+  dartz: ^0.10.0-nullsafety.2
+  dio: ^4.0.0
+  equatable: ^2.0.3
+  flutter_rating_bar: ^4.0.0
+  flutter_riverpod: ^0.14.0+3
+  get_it: ^7.2.0
+  injectable: ^1.4.1
+  nil: ^1.1.1
+  shimmer: ^2.0.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  build_runner: null
+  flutter_launcher_icons: ^0.9.1
+  injectable_generator: ^1.4.1
+  lint: ^1.5.3
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/img/placeholder.png
+    - assets/img/error.png
+
+  fonts:
+    - family: Lato
+      fonts:
+        - asset: assets/fonts/Lato-Black.ttf
+        - asset: assets/fonts/Lato-BlackItalic.ttf
+        - asset: assets/fonts/Lato-Bold.ttf
+        - asset: assets/fonts/Lato-BoldItalic.ttf
+        - asset: assets/fonts/Lato-Italic.ttf
+        - asset: assets/fonts/Lato-Light.ttf
+        - asset: assets/fonts/Lato-LightItalic.ttf
+        - asset: assets/fonts/Lato-Regular.ttf
+        - asset: assets/fonts/Lato-Thin.ttf
+        - asset: assets/fonts/Lato-ThinItalic.ttf
+
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/icons/icon.png"
+  adaptive_icon_background: "#ffffff"
+  remove_alpha_ios: true

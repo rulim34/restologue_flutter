@@ -1,0 +1,160 @@
+import 'package:flutter/material.dart';
+
+final ThemeData lightTheme = ThemeData(
+  primaryColor: const Color(0xFF000000),
+  canvasColor: const Color(0xFFF6F8FD),
+  accentColor: const Color(0xFF96BB7C),
+  buttonColor: const Color(0x99000000),
+  shadowColor: const Color(0xB3C5C5C5),
+  highlightColor: const Color(0xFFDDDDDD),
+  iconTheme: const IconThemeData(
+    color: Color(0xFFFFFFFF),
+  ),
+  fontFamily: 'Lato',
+  appBarTheme: const AppBarTheme(
+    brightness: Brightness.dark,
+    color: Color(0xFFF6F8FD),
+  ),
+  tabBarTheme: const TabBarTheme(
+    unselectedLabelColor: Color(0xFFAAAAAA),
+    labelColor: Color(0xFF96BB7C),
+    indicator: BoxDecoration(
+      borderRadius: BorderRadius.all(
+        Radius.circular(20),
+      ),
+      color: Color(0x4096BB7C),
+    ),
+  ),
+  bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+    backgroundColor: Color(0xFFFFFFFF),
+    selectedItemColor: Color(0xFF96BB7C),
+    unselectedItemColor: Color(0xFF555555),
+    showSelectedLabels: false,
+    showUnselectedLabels: false,
+  ),
+  cardTheme: const CardTheme(
+    color: Color(0xFFFFFFFF),
+    shadowColor: Color(0x05000000),
+  ),
+  primaryTextTheme: const TextTheme(
+    headline1: TextStyle(
+      color: Color(0xFF000000),
+      fontSize: 22,
+      fontWeight: FontWeight.w700,
+      fontFamily: 'Lato',
+    ),
+    headline2: TextStyle(
+      color: Color(0xFF000000),
+      fontSize: 20,
+      fontWeight: FontWeight.w500,
+      fontFamily: 'Lato',
+    ),
+    headline3: TextStyle(
+      height: 1.2,
+      fontSize: 13,
+      fontWeight: FontWeight.w600,
+      fontFamily: 'Lato',
+    ),
+    headline4: TextStyle(
+      color: Color(0xFF000000),
+      fontSize: 17,
+      fontWeight: FontWeight.w300,
+      fontFamily: 'Lato',
+    ),
+    headline5: TextStyle(
+      color: Color(0xFF000000),
+      fontSize: 17,
+      fontWeight: FontWeight.w400,
+      fontFamily: 'Lato',
+    ),
+    headline6: TextStyle(
+      color: Color(0xFF999999),
+      fontSize: 13,
+      fontWeight: FontWeight.w400,
+      fontFamily: 'Lato',
+    ),
+    subtitle1: TextStyle(
+      color: Color(0xFF000000),
+      height: 1.2,
+      fontSize: 20,
+      fontWeight: FontWeight.w600,
+      fontFamily: 'Lato',
+    ),
+    subtitle2: TextStyle(
+      color: Color(0xFF000000),
+      fontSize: 14,
+      fontWeight: FontWeight.w600,
+      fontFamily: 'Lato',
+    ),
+    bodyText1: TextStyle(
+      color: Color(0xFF000000),
+      fontSize: 16,
+      fontWeight: FontWeight.w600,
+      fontFamily: 'Lato',
+    ),
+    bodyText2: TextStyle(
+      color: Color(0xFF999999),
+      fontSize: 16,
+      fontWeight: FontWeight.w500,
+      fontFamily: 'Lato',
+    ),
+  ),
+  textTheme: const TextTheme(
+    headline1: TextStyle(
+      color: Color(0xFF000000),
+      height: 1.5,
+      fontSize: 22,
+      fontWeight: FontWeight.w600,
+      fontFamily: 'Lato',
+    ),
+    headline2: TextStyle(
+      color: Color(0xFF000000),
+      height: 1.3,
+      fontSize: 20,
+      fontWeight: FontWeight.w600,
+      fontFamily: 'Lato',
+    ),
+    headline3: TextStyle(
+      color: Color(0xFF000000),
+      height: 1.3,
+      fontSize: 19,
+      fontWeight: FontWeight.w600,
+      fontFamily: 'Lato',
+    ),
+    headline4: TextStyle(
+      color: Color(0xFF000000),
+      height: 1.3,
+      fontSize: 18,
+      fontWeight: FontWeight.w600,
+      fontFamily: 'Lato',
+    ),
+    headline5: TextStyle(
+      color: Color(0xFF000000),
+      height: 1.2,
+      fontSize: 17,
+      fontWeight: FontWeight.w600,
+      fontFamily: 'Lato',
+    ),
+    headline6: TextStyle(
+      color: Color(0xFF000000),
+      height: 1.2,
+      fontSize: 16,
+      fontWeight: FontWeight.w600,
+      fontFamily: 'Lato',
+    ),
+    bodyText1: TextStyle(
+      color: Color(0xFF111111),
+      height: 1.5,
+      fontSize: 15,
+      fontWeight: FontWeight.w400,
+      fontFamily: 'Lato',
+    ),
+    bodyText2: TextStyle(
+      color: Color(0xFF111111),
+      height: 1.2,
+      fontSize: 13,
+      fontWeight: FontWeight.w400,
+      fontFamily: 'Lato',
+    ),
+  ),
+);
