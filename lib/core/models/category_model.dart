@@ -7,7 +7,7 @@ class CategoryModel extends Category {
           name: name,
         );
 
-  factory CategoryModel.fromApiJson(Map<dynamic, dynamic> json) {
+  factory CategoryModel.fromJson(Map<dynamic, dynamic> json) {
     return CategoryModel(
       name: json['name'].toString(),
     );

@@ -2,7 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../domain/usecases/get_restos.dart';
-import 'notifier.dart';
+import 'notifiers.dart';
 
 @injectable
 class HomeNotifier extends StateNotifier<HomeState> {

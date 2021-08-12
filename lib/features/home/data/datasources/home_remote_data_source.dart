@@ -34,7 +34,7 @@ class HomeRemoteDataSourceImpl extends HomeRemoteDataSource {
 
     if (response.statusCode == 200) {
       return List<RestoModel>.from(response.data['restaurants']
-          .map((d) => RestoModel.fromApiJson(d as Map)) as Iterable);
+          .map((d) => RestoModel.fromJson(d as Map)) as Iterable);
     } else {
       throw RequestException();
     }

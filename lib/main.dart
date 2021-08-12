@@ -1,27 +1,44 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'core/config/theme.dart';
-import 'features/home/presentation/pages/home.dart';
+import 'features/navbar/presentation/widgets/navbar.dart';
 import 'injection.dart';
 
 void main() {
   configureDependencies();
   runApp(
-    ProviderScope(
+    const ProviderScope(
       child: App(),
     ),
   );
 }
 
-class App extends StatelessWidget {
+class App extends StatefulWidget {
+  const App();
+
+  @override
+  _AppState createState() => _AppState();
+}
+
+class _AppState extends State<App> {
+  @override
+  void initState() {
+    super.initState();
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Restaurant',
+      title: 'Restologue',
       theme: lightTheme,
       debugShowCheckedModeBanner: false,
-      home: const Home(),
+      home: NavBar(),
     );
   }
 }

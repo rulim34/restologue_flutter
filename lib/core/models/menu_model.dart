@@ -7,7 +7,7 @@ class FoodModel extends Food {
           name: name,
         );
 
-  factory FoodModel.fromApiJson(Map<dynamic, dynamic> json) {
+  factory FoodModel.fromJson(Map<dynamic, dynamic> json) {
     return FoodModel(
       name: json['name'].toString(),
     );
@@ -21,7 +21,7 @@ class DrinkModel extends Drink {
           name: name,
         );
 
-  factory DrinkModel.fromApiJson(Map<dynamic, dynamic> json) {
+  factory DrinkModel.fromJson(Map<dynamic, dynamic> json) {
     return DrinkModel(
       name: json['name'].toString(),
     );

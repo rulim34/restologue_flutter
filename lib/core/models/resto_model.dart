@@ -33,7 +33,7 @@ class RestoModel extends Resto {
           customerReviews: customerReviews,
         );
 
-  factory RestoModel.fromApiJson(Map<dynamic, dynamic> json) {
+  factory RestoModel.fromJson(Map<dynamic, dynamic> json) {
     return RestoModel(
       id: json['id'].toString(),
       name: json['name'].toString(),
@@ -43,21 +43,20 @@ class RestoModel extends Resto {
       address: json['address']?.toString() ?? '',
       categories: json.containsKey('categories')
           ? List.from(json['categories']
-              .map((d) => CategoryModel.fromApiJson(d as Map)) as Iterable)
+              .map((d) => CategoryModel.fromJson(d as Map)) as Iterable)
           : [],
       foods: json.containsKey('menus')
           ? List.from(json['menus']['foods']
-              .map((d) => FoodModel.fromApiJson(d as Map)) as Iterable)
+              .map((d) => FoodModel.fromJson(d as Map)) as Iterable)
           : [],
       drinks: json.containsKey('menus')
           ? List.from(json['menus']['drinks']
-              .map((d) => DrinkModel.fromApiJson(d as Map)) as Iterable)
+              .map((d) => DrinkModel.fromJson(d as Map)) as Iterable)
           : [],
       rating: json['rating'].toString(),
       customerReviews: json.containsKey('customerReviews')
           ? List.from(json['customerReviews']
-                  .map((d) => CustomerReviewModel.fromApiJson(d as Map))
-              as Iterable)
+              .map((d) => CustomerReviewModel.fromJson(d as Map)) as Iterable)
           : [],
     );
   }

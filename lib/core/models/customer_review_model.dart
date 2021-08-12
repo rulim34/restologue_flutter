@@ -11,7 +11,7 @@ class CustomerReviewModel extends CustomerReview {
           date: date,
         );
 
-  factory CustomerReviewModel.fromApiJson(Map<dynamic, dynamic> json) {
+  factory CustomerReviewModel.fromJson(Map<dynamic, dynamic> json) {
     return CustomerReviewModel(
       name: json['name'] as String,
       review: json['review'] as String,

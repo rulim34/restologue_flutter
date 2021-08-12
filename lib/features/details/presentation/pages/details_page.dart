@@ -8,21 +8,23 @@ import '../../../../core/config/config.dart';
 import '../../../../core/entities/resto.dart';
 import '../../../../core/widgets/error_indicator.dart';
 import '../../../../provider.dart';
-import '../notifier/notifier.dart';
+import '../notifiers/notifiers.dart';
+import '../widgets/review_form.dart';
+import '../widgets/reviews.dart';
 
-class Details extends StatefulWidget {
+class DetailsPage extends StatefulWidget {
   final Resto resto;
 
-  const Details({
+  const DetailsPage({
     required this.resto,
     Key? key,
   }) : super(key: key);
 
   @override
-  _DetailsState createState() => _DetailsState();
+  _DetailsPageState createState() => _DetailsPageState();
 }
 
-class _DetailsState extends State<Details> {
+class _DetailsPageState extends State<DetailsPage> {
   @override
   void initState() {
     super.initState();
@@ -47,37 +49,45 @@ class _DetailsState extends State<Details> {
                 elevation: 0,
                 automaticallyImplyLeading: false,
                 leading: Container(
-                  margin: const EdgeInsets.fromLTRB(15, 15, 0, 0),
-                  child: ClipOval(
-                    child: Material(
-                      color: Theme.of(context).accentColor,
-                      child: InkWell(
-                        splashColor: Theme.of(context).cardTheme.shadowColor,
-                        onTap: () => Navigator.of(context).pop(),
-                        child: SizedBox(
-                          width: 40,
-                          height: 40,
-                          child: Center(
-                            child: Icon(
-                              Icons.arrow_back_rounded,
-                              size: 20,
-                              color: Theme.of(context).iconTheme.color,
-                            ),
+                  margin: const EdgeInsets.fromLTRB(10, 10, 0, 0),
+                  child: TextButton(
+                    style: ButtonStyle(
+                      shape: MaterialStateProperty.all(
+                        const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(40),
                           ),
                         ),
                       ),
+                      backgroundColor: MaterialStateProperty.all<Color>(
+                        Theme.of(context).accentColor,
+                      ),
+                      foregroundColor: MaterialStateProperty.all<Color>(
+                        Colors.white,
+                      ),
+                      overlayColor: MaterialStateProperty.all<Color>(
+                        Colors.white.withOpacity(0.5),
+                      ),
+                    ),
+                    onPressed: Navigator.of(context).pop,
+                    child: const Icon(
+                      Icons.arrow_back_rounded,
+                      color: Colors.white,
                     ),
                   ),
                 ),
                 flexibleSpace: FlexibleSpaceBar(
-                  background: CachedNetworkImage(
-                    imageUrl:
-                        'https://$apiUrl/images/medium/${widget.resto.pictureId}',
-                    placeholder: (context, url) => Image.asset(
-                      'assets/img/placeholder.png',
+                  background: Hero(
+                    tag: '${widget.resto.id}-hero',
+                    child: CachedNetworkImage(
+                      imageUrl:
+                          'https://$apiUrl/images/medium/${widget.resto.pictureId}',
+                      placeholder: (context, url) => Image.asset(
+                        'assets/img/placeholder.png',
+                        fit: BoxFit.cover,
+                      ),
                       fit: BoxFit.cover,
                     ),
-                    fit: BoxFit.cover,
                   ),
                 ),
               ),
@@ -195,14 +205,16 @@ class _DetailsState extends State<Details> {
                                   )
                                 ],
                               ),
-                              child: Text(
-                                state.resto.foods[index].name,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyText1!
-                                    .copyWith(
-                                      height: 1,
-                                    ),
+                              child: Center(
+                                child: Text(
+                                  state.resto.foods[index].name,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyText1!
+                                      .copyWith(
+                                        height: 1,
+                                      ),
+                                ),
                               ),
                             );
                           },
@@ -239,14 +251,16 @@ class _DetailsState extends State<Details> {
                                   )
                                 ],
                               ),
-                              child: Text(
-                                state.resto.drinks[index].name,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyText1!
-                                    .copyWith(
-                                      height: 1,
-                                    ),
+                              child: Center(
+                                child: Text(
+                                  state.resto.drinks[index].name,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyText1!
+                                      .copyWith(
+                                        height: 1,
+                                      ),
+                                ),
                               ),
                             );
                           },
@@ -259,70 +273,12 @@ class _DetailsState extends State<Details> {
                           style: Theme.of(context).textTheme.headline1,
                         ),
                       ),
-                      Container(
-                        margin: const EdgeInsets.fromLTRB(16, 0, 16, 16),
-                        child: ListView.builder(
-                          primary: false,
-                          shrinkWrap: true,
-                          itemCount: state.resto.customerReviews.length,
-                          itemBuilder: (context, index) {
-                            return Container(
-                              padding: const EdgeInsets.fromLTRB(16, 4, 16, 16),
-                              margin: const EdgeInsets.only(bottom: 8),
-                              decoration: BoxDecoration(
-                                color: Theme.of(context).cardTheme.color,
-                                borderRadius: const BorderRadius.all(
-                                  Radius.circular(10),
-                                ),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Theme.of(context)
-                                        .cardTheme
-                                        .shadowColor!,
-                                    blurRadius: 5,
-                                  )
-                                ],
-                              ),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: <Widget>[
-                                  ListTile(
-                                    dense: true,
-                                    contentPadding: const EdgeInsets.all(0),
-                                    title: Text(
-                                      state.resto.customerReviews[index].name,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .headline4!
-                                          .copyWith(
-                                            height: 1,
-                                          ),
-                                    ),
-                                    subtitle: Text(
-                                      state.resto.customerReviews[index].date,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyText1!
-                                          .copyWith(
-                                            height: 1,
-                                          ),
-                                    ),
-                                  ),
-                                  Text(
-                                    state.resto.customerReviews[index].review,
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodyText1!
-                                        .copyWith(
-                                          height: 1,
-                                        ),
-                                  ),
-                                ],
-                              ),
-                            );
-                          },
-                        ),
+                      ReviewForm(
+                        id: state.resto.id,
                       ),
+                      Reviews(
+                        initialReviews: state.resto.customerReviews,
+                      )
                     ],
                   ),
                 );

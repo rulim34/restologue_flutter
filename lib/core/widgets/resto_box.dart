@@ -2,8 +2,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
-import '../../../../core/config/config.dart';
-import '../../../../core/entities/resto.dart';
+import '../config/config.dart';
+import '../entities/resto.dart';
 
 class RestoBox extends StatelessWidget {
   final Resto resto;
@@ -85,7 +85,6 @@ class RestoBox extends StatelessWidget {
                           color: Color(0xFFFFC107),
                         ),
                         itemSize: 20,
-                        unratedColor: const Color(0xFFFFF9C4),
                       )
                     ],
                   ),
@@ -117,19 +116,22 @@ class RestoBox extends StatelessWidget {
                         Radius.circular(10),
                       ),
                     ),
-                    child: ClipRRect(
-                        borderRadius: const BorderRadius.all(
-                          Radius.circular(10),
-                        ),
-                        child: CachedNetworkImage(
-                          imageUrl:
-                              'https://$apiUrl/images/medium/${resto.pictureId}',
-                          placeholder: (context, url) => Image.asset(
-                            'assets/img/placeholder.png',
-                            fit: BoxFit.cover,
+                    child: Hero(
+                      tag: '${resto.id}-hero',
+                      child: ClipRRect(
+                          borderRadius: const BorderRadius.all(
+                            Radius.circular(10),
                           ),
-                          fit: BoxFit.cover,
-                        )),
+                          child: CachedNetworkImage(
+                            imageUrl:
+                                'https://$apiUrl/images/medium/${resto.pictureId}',
+                            placeholder: (context, url) => Image.asset(
+                              'assets/img/placeholder.png',
+                              fit: BoxFit.cover,
+                            ),
+                            fit: BoxFit.cover,
+                          )),
+                    ),
                   ),
                 ),
               ),

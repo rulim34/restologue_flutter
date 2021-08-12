@@ -10,7 +10,7 @@ class LoadingIndicator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return ListView(
       children: List.generate(count, (index) {
         return Padding(
           padding: const EdgeInsets.fromLTRB(12, 0, 12, 0),

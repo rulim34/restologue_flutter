@@ -2,7 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../domain/usecases/get_details.dart';
-import 'notifier.dart';
+import 'notifiers.dart';
 
 @injectable
 class DetailsNotifier extends StateNotifier<DetailsState> {
@@ -17,11 +17,11 @@ class DetailsNotifier extends StateNotifier<DetailsState> {
   }) async {
     state = const DetailsLoading();
 
-    final failureOrRestos = await getDetails(
+    final failureOrResto = await getDetails(
       id: id,
     );
 
-    failureOrRestos.fold(
+    failureOrResto.fold(
       (failure) {
         state = const DetailsError(
           message: 'Failed to fetch restaurant details.',
