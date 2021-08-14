@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../../core/entities/customer_review.dart';
-import '../../../../core/widgets/error_indicator.dart';
+import '../../../../core/domain/entities/customer_review.dart';
+import '../../../../core/presentation/widgets/error_indicator.dart';
 import '../../../../provider.dart';
 import '../notifiers/notifiers.dart';
 
@@ -118,7 +118,7 @@ class _ReviewsState extends State<Reviews> {
               message: state.message,
               image: 'assets/img/error.png',
               onTryAgain: () {
-                context.read(reviewsProvider.notifier).sendReview();
+                context.read(reviewsProvider.notifier).postReview();
               },
             ),
           );

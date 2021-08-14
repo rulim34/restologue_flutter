@@ -5,11 +5,13 @@ import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../../../core/config/config.dart';
-import '../../../../core/error/exception.dart';
-import '../../../../core/models/customer_review_model.dart';
-import '../../../../core/models/resto_model.dart';
+import '../../../../core/data/models/customer_review_model.dart';
+import '../../../../core/data/models/resto_model.dart';
+import '../../../../core/error/exceptions.dart';
 
 abstract class DetailsRemoteDataSource {
+  const DetailsRemoteDataSource();
+
   Future<RestoModel> getDetails({
     String apiUrl,
     String endPoint,
@@ -25,11 +27,11 @@ abstract class DetailsRemoteDataSource {
 
 @LazySingleton(as: DetailsRemoteDataSource)
 class DetailsRemoteDataSourceImpl extends DetailsRemoteDataSource {
-  final Dio dio;
+  final Dio _dio;
 
-  DetailsRemoteDataSourceImpl({
-    required this.dio,
-  });
+  const DetailsRemoteDataSourceImpl(
+    this._dio,
+  );
 
   @override
   Future<RestoModel> getDetails({
@@ -37,16 +39,20 @@ class DetailsRemoteDataSourceImpl extends DetailsRemoteDataSource {
     String endPoint = 'detail',
     required String id,
   }) async {
-    final Uri url = Uri(
-      scheme: 'https',
-      host: apiUrl,
-      pathSegments: [endPoint, id],
-    );
-    final Response response = await dio.get('$url');
+    try {
+      final Uri url = Uri(
+        scheme: 'https',
+        host: apiUrl,
+        pathSegments: [endPoint, id],
+      );
+      final Response response = await _dio.get('$url');
 
-    if (response.statusCode == 200) {
-      return RestoModel.fromJson(response.data['restaurant'] as Map);
-    } else {
+      if (response.statusCode == 200) {
+        return RestoModel.fromJson(response.data['restaurant'] as Map);
+      } else {
+        throw RequestException();
+      }
+    } catch (error) {
       throw RequestException();
     }
   }
@@ -57,24 +63,28 @@ class DetailsRemoteDataSourceImpl extends DetailsRemoteDataSource {
     String endPoint = 'review',
     required Map<String, dynamic> data,
   }) async {
-    final Uri url = Uri(
-      scheme: 'https',
-      host: apiUrl,
-      path: endPoint,
-    );
-    final Response response = await dio.post('$url',
-        options: Options(
-          headers: {
-            HttpHeaders.contentTypeHeader: 'application/json',
-            'X-Auth-Token': 1234
-          },
-        ),
-        data: jsonEncode(data));
+    try {
+      final Uri url = Uri(
+        scheme: 'https',
+        host: apiUrl,
+        path: endPoint,
+      );
+      final Response response = await _dio.post('$url',
+          options: Options(
+            headers: {
+              HttpHeaders.contentTypeHeader: 'application/json',
+              'X-Auth-Token': 1234
+            },
+          ),
+          data: jsonEncode(data));
 
-    if (response.statusCode == 200) {
-      return List<CustomerReviewModel>.from(response.data['customerReviews']
-          .map((d) => CustomerReviewModel.fromJson(d as Map)) as Iterable);
-    } else {
+      if (response.statusCode == 200) {
+        return List<CustomerReviewModel>.from(response.data['customerReviews']
+            .map((d) => CustomerReviewModel.fromJson(d as Map)) as Iterable);
+      } else {
+        throw RequestException();
+      }
+    } catch (error) {
       throw RequestException();
     }
   }

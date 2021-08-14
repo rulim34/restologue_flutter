@@ -5,29 +5,36 @@ environment:
   sdk: ">=2.12.0 <3.0.0"
 
 dependencies:
-  flutter:
-    sdk: flutter
-
+  android_alarm_manager_plus: ^1.0.2
   cached_network_image: ^3.1.0
   cupertino_icons: ^1.0.2
   dartz: ^0.10.0-nullsafety.2
   dio: ^4.0.0
   equatable: ^2.0.3
+  flutter:
+    sdk: flutter
+  flutter_local_notifications: ^8.1.1+1
   flutter_rating_bar: ^4.0.0
   flutter_riverpod: ^0.14.0+3
   get_it: ^7.2.0
+  hive: ^2.0.4
+  hive_flutter: ^1.1.0
   injectable: ^1.4.1
+  intl: ^0.17.0
   nil: ^1.1.1
+  path_provider: ^2.0.2
+  rxdart: ^0.27.1
   shimmer: ^2.0.0
 
 dev_dependencies:
-  flutter_test:
-    sdk: flutter
-
   build_runner: null
   flutter_launcher_icons: ^0.9.1
+  flutter_test:
+    sdk: flutter
+  hive_generator: ^1.1.0
   injectable_generator: ^1.4.1
   lint: ^1.5.3
+  mockito: ^5.0.14
 
 flutter:
   uses-material-design: true
@@ -36,6 +43,7 @@ flutter:
     - assets/img/error.png
     - assets/img/placeholder.png
     - assets/img/search.png
+    - assets/icons/icon.png
 
   fonts:
     - family: Lato

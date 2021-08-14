@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../../features/drawer/presentation/widgets/drawer.dart';
+import '../../../../features/favourites/presentation/pages/favourites_page.dart';
 import '../../../../features/home/presentation/pages/home_page.dart';
 import '../../../../features/search/presentation/pages/search_page.dart';
+import '../../../../injection.dart';
 import '../../../../provider.dart';
 
 class NavBar extends StatelessWidget {
   final List<Widget> _pages = [
     const HomePage(),
     const SearchPage(),
+    const FavouritesPage(),
   ];
 
   NavBar({
@@ -23,6 +27,8 @@ class NavBar extends StatelessWidget {
 
         return SafeArea(
           child: Scaffold(
+            key: getIt<GlobalKey<ScaffoldState>>(),
+            drawer: const DrawerMenu(),
             extendBody: true,
             body: GestureDetector(
               onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
@@ -68,6 +74,10 @@ class NavBar extends StatelessWidget {
                     BottomNavigationBarItem(
                       icon: Icon(Icons.search_rounded),
                       label: 'Search',
+                    ),
+                    BottomNavigationBarItem(
+                      icon: Icon(Icons.bookmark_rounded),
+                      label: 'Bookmark',
                     ),
                   ],
                   currentIndex: state,

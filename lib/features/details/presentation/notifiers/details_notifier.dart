@@ -6,18 +6,18 @@ import 'notifiers.dart';
 
 @injectable
 class DetailsNotifier extends StateNotifier<DetailsState> {
-  GetDetails getDetails;
+  final GetDetails _getDetails;
 
-  DetailsNotifier({
-    required this.getDetails,
-  }) : super(const DetailsInitial());
+  DetailsNotifier(
+    this._getDetails,
+  ) : super(const DetailsInitial());
 
-  Future<void> fetchDetails({
+  Future<void> getDetails({
     required String id,
   }) async {
     state = const DetailsLoading();
 
-    final failureOrResto = await getDetails(
+    final failureOrResto = await _getDetails(
       id: id,
     );
 

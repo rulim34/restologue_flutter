@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 
-import '../../../../core/entities/customer_review.dart';
+import '../../../../core/domain/entities/customer_review.dart';
 
 @immutable
 abstract class ReviewsState extends Equatable {

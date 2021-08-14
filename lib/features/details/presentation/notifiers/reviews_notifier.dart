@@ -1,20 +1,20 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:injectable/injectable.dart';
 
-import '../../../../core/entities/customer_review.dart';
+import '../../../../core/domain/entities/customer_review.dart';
 import '../../domain/usecases/post_review.dart';
 import 'notifiers.dart';
 
 @injectable
 class ReviewsNotifier extends StateNotifier<ReviewsState> {
-  PostReview postReview;
+  final PostReview _postReview;
   String? id;
   String? name;
   String? review;
 
-  ReviewsNotifier({
-    required this.postReview,
-  }) : super(const ReviewsInitial());
+  ReviewsNotifier(
+    this._postReview,
+  ) : super(const ReviewsInitial());
 
   void setInitialReviews({
     required List<CustomerReview> reviews,
@@ -24,10 +24,10 @@ class ReviewsNotifier extends StateNotifier<ReviewsState> {
     );
   }
 
-  Future<void> sendReview() async {
+  Future<void> postReview() async {
     state = const ReviewsLoading();
 
-    final failureOrReviews = await postReview(
+    final failureOrReviews = await _postReview(
       data: {
         'id': id,
         'name': name,

@@ -96,7 +96,7 @@ class _SearchBarState extends State<SearchBar> {
                   const Duration(milliseconds: 1000),
                   () {
                     context.read(searchProvider.notifier).searchQuery = text;
-                    context.read(searchProvider.notifier).fetchRestos();
+                    context.read(searchProvider.notifier).searchRestos();
                   },
                 );
               },

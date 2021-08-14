@@ -5,8 +5,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:nil/nil.dart';
 
 import '../../../../core/config/config.dart';
-import '../../../../core/entities/resto.dart';
-import '../../../../core/widgets/error_indicator.dart';
+import '../../../../core/domain/entities/resto.dart';
+import '../../../../core/presentation/widgets/error_indicator.dart';
 import '../../../../provider.dart';
 import '../notifiers/notifiers.dart';
 import '../widgets/review_form.dart';
@@ -29,7 +29,10 @@ class _DetailsPageState extends State<DetailsPage> {
   void initState() {
     super.initState();
     Future.delayed(Duration.zero, () {
-      context.read(detailsProvider.notifier).fetchDetails(
+      context.read(detailsProvider.notifier).getDetails(
+            id: widget.resto.id,
+          );
+      context.read(bookmarkProvider.notifier).getRestoStatus(
             id: widget.resto.id,
           );
     });
@@ -49,15 +52,11 @@ class _DetailsPageState extends State<DetailsPage> {
                 elevation: 0,
                 automaticallyImplyLeading: false,
                 leading: Container(
-                  margin: const EdgeInsets.fromLTRB(10, 10, 0, 0),
+                  padding: const EdgeInsets.fromLTRB(10, 10, 0, 0),
                   child: TextButton(
                     style: ButtonStyle(
                       shape: MaterialStateProperty.all(
-                        const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(40),
-                          ),
-                        ),
+                        const CircleBorder(),
                       ),
                       backgroundColor: MaterialStateProperty.all<Color>(
                         Theme.of(context).accentColor,
@@ -66,7 +65,7 @@ class _DetailsPageState extends State<DetailsPage> {
                         Colors.white,
                       ),
                       overlayColor: MaterialStateProperty.all<Color>(
-                        Colors.white.withOpacity(0.5),
+                        Colors.black.withOpacity(0.1),
                       ),
                     ),
                     onPressed: Navigator.of(context).pop,
@@ -76,6 +75,58 @@ class _DetailsPageState extends State<DetailsPage> {
                     ),
                   ),
                 ),
+                actions: <Widget>[
+                  Consumer(
+                    builder: (context, watch, child) {
+                      final bool state = watch(bookmarkProvider);
+
+                      return Container(
+                        width: 56,
+                        padding: const EdgeInsets.fromLTRB(0, 10, 10, 0),
+                        child: TextButton(
+                          style: ButtonStyle(
+                            shape: MaterialStateProperty.all(
+                              const CircleBorder(),
+                            ),
+                            backgroundColor: MaterialStateProperty.all<Color>(
+                              Theme.of(context).accentColor,
+                            ),
+                            foregroundColor: MaterialStateProperty.all<Color>(
+                              Colors.white,
+                            ),
+                            overlayColor: MaterialStateProperty.all<Color>(
+                              Colors.black.withOpacity(0.1),
+                            ),
+                          ),
+                          onPressed: () {
+                            if (state) {
+                              context
+                                  .read(bookmarkProvider.notifier)
+                                  .deleteResto(
+                                    id: widget.resto.id,
+                                  );
+                            } else {
+                              context
+                                  .read(bookmarkProvider.notifier)
+                                  .createResto(
+                                    resto: widget.resto,
+                                  );
+                            }
+                            context
+                                .read(favouritesProvider.notifier)
+                                .getRestos();
+                          },
+                          child: Icon(
+                            state
+                                ? Icons.bookmark_rounded
+                                : Icons.bookmark_border_rounded,
+                            color: Colors.white,
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                ],
                 flexibleSpace: FlexibleSpaceBar(
                   background: Hero(
                     tag: '${widget.resto.id}-hero',
@@ -186,7 +237,7 @@ class _DetailsPageState extends State<DetailsPage> {
                         margin: const EdgeInsets.fromLTRB(24, 0, 16, 4),
                         child: ListView.builder(
                           scrollDirection: Axis.horizontal,
-                          itemCount: state.resto.foods.length,
+                          itemCount: state.resto.menus.foods.length,
                           itemBuilder: (context, index) {
                             return Container(
                               padding: const EdgeInsets.all(16),
@@ -207,7 +258,7 @@ class _DetailsPageState extends State<DetailsPage> {
                               ),
                               child: Center(
                                 child: Text(
-                                  state.resto.foods[index].name,
+                                  state.resto.menus.foods[index].name,
                                   style: Theme.of(context)
                                       .textTheme
                                       .bodyText1!
@@ -232,7 +283,7 @@ class _DetailsPageState extends State<DetailsPage> {
                         margin: const EdgeInsets.fromLTRB(24, 0, 16, 24),
                         child: ListView.builder(
                           scrollDirection: Axis.horizontal,
-                          itemCount: state.resto.drinks.length,
+                          itemCount: state.resto.menus.drinks.length,
                           itemBuilder: (context, index) {
                             return Container(
                               padding: const EdgeInsets.all(16),
@@ -253,7 +304,7 @@ class _DetailsPageState extends State<DetailsPage> {
                               ),
                               child: Center(
                                 child: Text(
-                                  state.resto.drinks[index].name,
+                                  state.resto.menus.drinks[index].name,
                                   style: Theme.of(context)
                                       .textTheme
                                       .bodyText1!
@@ -289,7 +340,7 @@ class _DetailsPageState extends State<DetailsPage> {
                   onTryAgain: () {
                     context
                         .read(detailsProvider.notifier)
-                        .fetchDetails(id: widget.resto.id);
+                        .getDetails(id: widget.resto.id);
                   },
                 );
               } else {

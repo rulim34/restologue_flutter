@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 
-import '../../../../core/entities/resto.dart';
+import '../../../../core/domain/entities/resto.dart';
 
 @immutable
 abstract class SearchState extends Equatable {

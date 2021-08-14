@@ -6,16 +6,16 @@ import 'notifiers.dart';
 
 @injectable
 class HomeNotifier extends StateNotifier<HomeState> {
-  GetRestos getRestos;
+  final GetRestos _getRestos;
 
-  HomeNotifier({
-    required this.getRestos,
-  }) : super(const HomeInitial());
+  HomeNotifier(
+    this._getRestos,
+  ) : super(const HomeInitial());
 
-  Future<void> fetchRestos() async {
+  Future<void> getRestos() async {
     state = const HomeLoading();
 
-    final failureOrRestos = await getRestos();
+    final failureOrRestos = await _getRestos();
 
     failureOrRestos.fold(
       (failure) {

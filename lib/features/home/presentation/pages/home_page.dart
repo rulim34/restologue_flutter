@@ -2,16 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:nil/nil.dart';
 
-import '../../../../core/widgets/custom_app_bar.dart';
-import '../../../../core/widgets/error_indicator.dart';
-import '../../../../core/widgets/loading_indicator.dart';
-import '../../../../core/widgets/resto_box.dart';
+import '../../../../core/presentation/widgets/custom_app_bar.dart';
+import '../../../../core/presentation/widgets/error_indicator.dart';
+import '../../../../core/presentation/widgets/loading_indicator.dart';
+import '../../../../core/presentation/widgets/resto_box.dart';
 import '../../../../provider.dart';
 import '../../../details/presentation/pages/details_page.dart';
 import '../notifiers/notifiers.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+  const HomePage({
+    Key? key,
+  }) : super(key: key);
 
   @override
   _HomePageState createState() => _HomePageState();
@@ -22,7 +24,7 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     Future.delayed(Duration.zero, () {
-      context.read(homeProvider.notifier).fetchRestos();
+      context.read(homeProvider.notifier).getRestos();
     });
   }
 
@@ -53,7 +55,7 @@ class _HomePageState extends State<HomePage> {
             } else if (state is HomeLoaded) {
               return RefreshIndicator(
                 color: Theme.of(context).accentColor,
-                onRefresh: context.read(homeProvider.notifier).fetchRestos,
+                onRefresh: context.read(homeProvider.notifier).getRestos,
                 child: ListView.builder(
                   itemCount: state.restos.length,
                   itemBuilder: (context, index) {
@@ -80,7 +82,7 @@ class _HomePageState extends State<HomePage> {
                 message: state.message,
                 image: 'assets/img/error.png',
                 onTryAgain: () {
-                  context.read(homeProvider.notifier).fetchRestos();
+                  context.read(homeProvider.notifier).getRestos();
                 },
               );
             } else {

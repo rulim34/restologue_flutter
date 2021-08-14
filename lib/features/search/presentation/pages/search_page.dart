@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:nil/nil.dart';
 
-import '../../../../core/widgets/custom_app_bar.dart';
-import '../../../../core/widgets/error_indicator.dart';
-import '../../../../core/widgets/loading_indicator.dart';
-import '../../../../core/widgets/resto_box.dart';
+import '../../../../core/presentation/widgets/custom_app_bar.dart';
+import '../../../../core/presentation/widgets/error_indicator.dart';
+import '../../../../core/presentation/widgets/loading_indicator.dart';
+import '../../../../core/presentation/widgets/resto_box.dart';
 import '../../../../provider.dart';
 import '../../../details/presentation/pages/details_page.dart';
 import '../notifiers/notifiers.dart';
@@ -59,7 +59,7 @@ class _SearchPageState extends State<SearchPage> {
                       return RefreshIndicator(
                         color: Theme.of(context).accentColor,
                         onRefresh:
-                            context.read(searchProvider.notifier).fetchRestos,
+                            context.read(searchProvider.notifier).searchRestos,
                         child: ListView.builder(
                           itemCount: state.restos.length,
                           itemBuilder: (context, index) {
@@ -92,7 +92,7 @@ class _SearchPageState extends State<SearchPage> {
                       message: state.message,
                       image: 'assets/img/error.png',
                       onTryAgain: () {
-                        context.read(searchProvider.notifier).fetchRestos();
+                        context.read(searchProvider.notifier).searchRestos();
                       },
                     );
                   } else {

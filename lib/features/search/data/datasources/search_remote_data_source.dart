@@ -2,10 +2,12 @@ import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../../../core/config/config.dart';
-import '../../../../core/error/exception.dart';
-import '../../../../core/models/resto_model.dart';
+import '../../../../core/data/models/resto_model.dart';
+import '../../../../core/error/exceptions.dart';
 
 abstract class SearchRemoteDataSource {
+  const SearchRemoteDataSource();
+
   Future<List<RestoModel>> searchRestos({
     String apiUrl,
     String endPoint,
@@ -15,11 +17,11 @@ abstract class SearchRemoteDataSource {
 
 @LazySingleton(as: SearchRemoteDataSource)
 class SearchRemoteDataSourceImpl extends SearchRemoteDataSource {
-  final Dio dio;
+  final Dio _dio;
 
-  SearchRemoteDataSourceImpl({
-    required this.dio,
-  });
+  const SearchRemoteDataSourceImpl(
+    this._dio,
+  );
 
   @override
   Future<List<RestoModel>> searchRestos({
@@ -35,7 +37,7 @@ class SearchRemoteDataSourceImpl extends SearchRemoteDataSource {
         'q': searchQuery,
       },
     );
-    final Response response = await dio.get('$url');
+    final Response response = await _dio.get('$url');
 
     if (response.statusCode == 200) {
       return List<RestoModel>.from(response.data['restaurants']

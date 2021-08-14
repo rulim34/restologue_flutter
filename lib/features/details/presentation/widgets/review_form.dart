@@ -148,7 +148,7 @@ class _ReviewFormState extends State<ReviewForm> {
                   FocusScope.of(context).unfocus();
                   if (_formKey.currentState?.validate() ?? false) {
                     _formKey.currentState?.save();
-                    context.read(reviewsProvider.notifier).sendReview();
+                    context.read(reviewsProvider.notifier).postReview();
                   }
                 },
                 child: Text(

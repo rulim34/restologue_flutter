@@ -6,12 +6,12 @@ import 'notifiers.dart';
 
 @injectable
 class SearchNotifier extends StateNotifier<SearchState> {
-  SearchRestos searchRestos;
+  final SearchRestos _searchRestos;
   String? searchQuery;
 
-  SearchNotifier({
-    required this.searchRestos,
-  }) : super(const SearchInitial(
+  SearchNotifier(
+    this._searchRestos,
+  ) : super(const SearchInitial(
           message: 'Enter a keyword and start exploring!',
         ));
 
@@ -22,13 +22,13 @@ class SearchNotifier extends StateNotifier<SearchState> {
     );
   }
 
-  Future<void> fetchRestos() async {
+  Future<void> searchRestos() async {
     if (searchQuery == '') {
       setInitial();
     } else {
       state = const SearchLoading();
 
-      final failureOrRestos = await searchRestos(
+      final failureOrRestos = await _searchRestos(
         searchQuery: searchQuery!,
       );
 

@@ -1,20 +1,22 @@
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
 
-import '../../../../core/entities/customer_review.dart';
+import '../../../../core/domain/entities/customer_review.dart';
 import '../../../../core/error/failures.dart';
 import '../repositories/details_repository.dart';
 
 @lazySingleton
 class PostReview {
-  final DetailsRepository repository;
+  final DetailsRepository _repository;
 
-  PostReview(this.repository);
+  const PostReview(
+    this._repository,
+  );
 
   Future<Either<Failure, List<CustomerReview>>> call({
     required Map<String, dynamic> data,
   }) async {
-    return repository.postReview(
+    return _repository.postReview(
       data: data,
     );
   }
